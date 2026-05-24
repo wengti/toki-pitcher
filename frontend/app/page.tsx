@@ -1,6 +1,14 @@
+import ContentHome from "@/components/content/ContentHome";
+import Footer from "@/components/footer/Footer";
+import Header from "@/components/header/Header";
+
 
 export default function Home() {
-  return (
-    <h1>Hi</h1>
-  )
+    return (
+        <>
+            <Header />
+            <ContentHome />
+            <Footer />
+        </>
+    )
 }

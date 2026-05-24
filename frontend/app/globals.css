@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
 :root {
+    --background-color: #121314;
+    --header-color: #f734b3;
+    --letter-white: white;
+    --header-h: 80px;
+    --footer-h: 25px;
+    --content-h: calc(100vh - var(--header-h) - var(--footer-h));
 }
 

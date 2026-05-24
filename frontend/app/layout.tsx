@@ -19,7 +19,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             lang="en"
             className={`${geistSans.variable} h-full`}
         >
-            <body className="">
+            <body className="bg-(--background-color) text-(--letter-white)">
                 {children}
             </body>
         </html>
