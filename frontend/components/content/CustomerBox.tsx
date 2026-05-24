@@ -67,7 +67,7 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
                     </div>
                     <div>
                         <p className='text-xs text-(--letter-pink)'>Monthly Usage: </p>
-                        <p>{monthly_usage}</p>
+                        <p>{monthly_usage} GB</p>
                     </div>
                 </div>
                 <div className="flex gap-4">
