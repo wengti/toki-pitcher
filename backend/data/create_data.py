@@ -27,8 +27,8 @@ if __name__ == "__main__":
         # Randomize Plan tier
         plan_tier = random.randint(1, 4)
 
-        # Monthly usage baseline is 700, 500, 300, 100 GB from tier 1 to 4
-        monthly_usage_baseline = 100 + (abs(4 - plan_tier)) * 200
+        # Monthly usage baseline is 650, 450, 250, 50 GB from tier 1 to 4
+        monthly_usage_baseline = 50 + (abs(4 - plan_tier)) * 200
 
         # Actual monthly usage will be between (baseline to baseline + 200) GB
         monthly_usage = monthly_usage_baseline + round((random.random() * 200), 2)

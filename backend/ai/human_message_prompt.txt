@@ -1,0 +1,24 @@
+Customer Information
+Name: {customer_name}
+Tenure Start Date: {tenure_start}
+Tenure End Date: {tenure_end}
+Monthly Usage: {monthly_usage} GB
+
+
+Current Plan Details
+Plan Name: {cur_plan_name}
+Plan Price: RM {cur_plan_price} per month
+Download Speed: {cur_download_speed} Mbps
+Upload Speed: {cur_upload_speed} Mbps
+
+
+Suggested Plan Details:
+Plan Name: {new_plan_name}
+Plan Price: RM {new_plan_price} per month
+Download Speed: {new_download_speed} Mbps
+Upload Speed: {new_upload_speed} Mbps
+Renew Duration: {new_plan_duration_months} months
+Router: {router}
+Mesh Devices Price: {mesh_price}
+FTTR Price: {fttr_price}
+Promotion: {promotion}
