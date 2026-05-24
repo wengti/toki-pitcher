@@ -18,7 +18,7 @@ Plan Price: RM {new_plan_price} per month
 Download Speed: {new_download_speed} Mbps
 Upload Speed: {new_upload_speed} Mbps
 Renew Duration: {new_plan_duration_months} months
-Router: {router}
+Router: {router} router
 Mesh Devices Price: {mesh_price}
 FTTR Price: {fttr_price}
 Promotion: {promotion}

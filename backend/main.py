@@ -1,5 +1,8 @@
+from ai.pitcher_chain import PitcherPromptModel, create_pitcher_chain
+
+
 def main():
-    print("Hello from backend!")
+    print("")
 
 
 if __name__ == "__main__":
