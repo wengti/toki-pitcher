@@ -9,14 +9,43 @@ type CustomerBoxPropsType = {
 
 export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
 
-    const { name, plan, monthly_usage, tenure_start, tenure_end, pitch: originalPitchVal } = customerData
+    const { id, name, plan, monthly_usage, tenure_start, tenure_end, pitch: originalPitchVal } = customerData
 
     const [pitchVal, setPitchVal] = useState<string>(originalPitchVal)
     const [error, setError] = useState<Error | null>(null)
 
     async function handleCopy() {
         try {
-            await navigator.clipboard.writeText(pitchVal);
+            await navigator.clipboard.writeText(pitchVal)
+        } catch (error) {
+            if (error instanceof Error) setError(new Error(error.message))
+            else setError(new Error("An unknown error has occured. Please try again."))
+        }
+    }
+
+    async function generatePitch(){
+        try {
+            
+            const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL!, {
+                method: "POST",
+                body: JSON.stringify(customerData),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+
+            // Improve the error message based on server error
+            if(!res.ok){ 
+                throw new Error("A server side issue has occured.")
+            }
+
+            const data = await res.json()
+
+            // Verify if this is working
+            if(data.new_pitch_val){
+                setPitchVal(data.new_pitch_val)
+            }
+            
         } catch (error) {
             if (error instanceof Error) setError(new Error(error.message))
             else setError(new Error("An unknown error has occured. Please try again."))
@@ -55,6 +84,7 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
             <div className="flex gap-4 mt-8 justify-around">
                 <button
                     className='bg-(--header-color) p-2 rounded-lg hover:opacity-50 active:opacity-50 cursor-pointer'
+                    onClick ={ () => generatePitch() }
                 >
                     Generate Pitch
                 </button>
