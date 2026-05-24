@@ -1,11 +1,15 @@
 import { createClient } from "@/lib/supabase/server"
+import CustomersHome from "./CustomersHome"
 
 export default async function ContentHome() {
 
     try {
 
         const supabase = await createClient()
-        const { data, error } = await supabase.from("customers").select()
+        const { data, error } = await supabase
+            .from("customers")
+            .select()
+            .order('tenure_end', {ascending: false})
         if (error){
             throw new Error(error.message)
         }
@@ -15,7 +19,7 @@ export default async function ContentHome() {
         
         return (
             <section className='min-h-(--content-h) flex flex-col'>
-                <p>Hi</p>
+                <CustomersHome customersData={data}/>
             </section>
         )
     }
