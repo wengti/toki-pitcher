@@ -9,10 +9,11 @@ type CustomerBoxPropsType = {
 
 export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
 
-    const { id, name, plan, monthly_usage, tenure_start, tenure_end, pitch: originalPitchVal } = customerData
+    const { name, plan, monthly_usage, tenure_start, tenure_end, pitch: originalPitchVal } = customerData
 
     const [pitchVal, setPitchVal] = useState<string>(originalPitchVal)
     const [error, setError] = useState<Error | null>(null)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     async function handleCopy() {
         try {
@@ -25,7 +26,9 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
 
     async function generatePitch(){
         try {
-            
+            setError(null)
+            setIsLoading(true)
+
             const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL!, {
                 method: "POST",
                 body: JSON.stringify(customerData),
@@ -45,8 +48,10 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
             if(data.new_pitch_val){
                 setPitchVal(data.new_pitch_val)
             }
+            setIsLoading(false)
             
         } catch (error) {
+            setIsLoading(false)
             if (error instanceof Error) setError(new Error(error.message))
             else setError(new Error("An unknown error has occured. Please try again."))
         }
@@ -100,6 +105,14 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
                 <div>
                     <p className="text-red-500 text-sm font-normal">
                         {error.message}
+                    </p>
+                </div>
+            }
+            {
+                isLoading &&
+                <div>
+                    <p className="text-sm font-normal">
+                        Generating...
                     </p>
                 </div>
             }
