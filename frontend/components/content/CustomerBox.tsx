@@ -12,9 +12,15 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
     const { name, plan, monthly_usage, tenure_start, tenure_end, pitch: originalPitchVal } = customerData
 
     const [pitchVal, setPitchVal] = useState<string>(originalPitchVal)
+    const [error, setError] = useState<Error | null>(null)
 
-    function handleCopy(){
-        
+    async function handleCopy() {
+        try {
+            await navigator.clipboard.writeText(pitchVal);
+        } catch (error) {
+            if (error instanceof Error) setError(new Error(error.message))
+            else setError(new Error("An unknown error has occured. Please try again."))
+        }
     }
 
 
@@ -60,9 +66,18 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
                 </button>
             </div>
             {
-                pitchVal &&
+                error &&
                 <div>
-                    <p>Some pitch</p>
+                    <p className="text-red-500 text-sm font-normal">
+                        {error.message}
+                    </p>
+                </div>
+            }
+            {
+                pitchVal &&
+                <div className='py-4 font-normal'>
+                    <p className="text-(--letter-pink) text-sm font-bold">Generated Pitch: </p>
+                    <p>{pitchVal}</p>
                 </div>
             }
 
