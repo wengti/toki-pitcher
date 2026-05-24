@@ -12,6 +12,7 @@ export default async function ContentHome() {
             .from("customers")
             .select()
             .order('tenure_end', {ascending: true})
+            .order('plan', {ascending: true})
             .gt('tenure_end', now.toISOString())
         if (error){
             throw new Error(error.message)

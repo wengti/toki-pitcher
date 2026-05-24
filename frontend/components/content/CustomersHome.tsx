@@ -3,6 +3,7 @@
 import { Database } from "@/types/supabase"
 import React, { useState } from "react"
 import { Toggle } from "../tailgrids/core/toggle"
+import CustomerBox from "./CustomerBox"
 
 export type CustomerType = Database["public"]["Tables"]["customers"]["Row"]
 
@@ -24,7 +25,7 @@ export default function CustomersHome({ customersData }: CustomersHomePropsType)
 
 
     const displayedCustomers = isFiltered
-        ? customersData.filter( (data) => {
+        ? customersData.filter((data) => {
             const endDate = new Date(data.tenure_end)
             const endYear = endDate.getFullYear()
             const endMonth = endDate.getMonth()
@@ -32,7 +33,7 @@ export default function CustomersHome({ customersData }: CustomersHomePropsType)
         })
         : customersData
 
-    
+
     console.log(displayedCustomers.length)
 
     return (
@@ -43,6 +44,13 @@ export default function CustomersHome({ customersData }: CustomersHomePropsType)
                     checked={isFiltered}
                     onChange={handleFilter}
                 />
+            </div>
+            <div className="grow gap-4 m-8 grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
+                {
+                    displayedCustomers.map((data) =>
+                        <CustomerBox customerData={data} key={data.id} />
+                    )
+                }
             </div>
         </>
     )

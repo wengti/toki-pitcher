@@ -19,15 +19,16 @@ export type Database = {
           id: string
           monthly_usage: number
           name: string
+          pitch: string | null
           plan: string
           tenure_end: string
           tenure_start: string
-          pitch: string
         }
         Insert: {
           id?: string
           monthly_usage: number
           name: string
+          pitch?: string | null
           plan: string
           tenure_end: string
           tenure_start: string
@@ -36,6 +37,7 @@ export type Database = {
           id?: string
           monthly_usage?: number
           name?: string
+          pitch?: string | null
           plan?: string
           tenure_end?: string
           tenure_start?: string
