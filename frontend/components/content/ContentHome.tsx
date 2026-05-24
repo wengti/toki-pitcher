@@ -5,11 +5,14 @@ export default async function ContentHome() {
 
     try {
 
+        const now = new Date()
+
         const supabase = await createClient()
         const { data, error } = await supabase
             .from("customers")
             .select()
-            .order('tenure_end', {ascending: false})
+            .order('tenure_end', {ascending: true})
+            .gt('tenure_end', now.toISOString())
         if (error){
             throw new Error(error.message)
         }
