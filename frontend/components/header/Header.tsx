@@ -12,6 +12,7 @@ export default function Header(){
                 alt="The logo of Toki Pitcher"
                 src="/toki_banner.png"
                 className='w-100'
+                loading="eager"
             />
         </header>
     )
