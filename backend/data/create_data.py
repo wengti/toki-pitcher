@@ -27,11 +27,17 @@ if __name__ == "__main__":
         # Randomize Plan tier
         plan_tier = random.randint(1, 4)
 
-        # Monthly usage baseline is 650, 450, 250, 50 GB from tier 1 to 4
-        monthly_usage_baseline = 50 + (abs(4 - plan_tier)) * 200
-
-        # Actual monthly usage will be between (baseline to baseline + 200) GB
-        monthly_usage = monthly_usage_baseline + round((random.random() * 200), 2)
+        # Create monthly usage based on plan tier in a range that is possible for
+        # Upgrade, Stay or Downgrade
+        match plan_tier:
+            case 1:
+                monthly_usage = 500 + random.random() * 500
+            case 2:
+                monthly_usage = 300 + random.random() * 400
+            case 3:
+                monthly_usage = 100 + random.random() * 400
+            case 4:
+                monthly_usage = 50 + random.random() * 250
 
         # Push to the list
         raw_data.append(
