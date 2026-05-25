@@ -18,7 +18,17 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
 
     async function handleCopy() {
         try {
-            await navigator.clipboard.writeText(pitchVal)
+            if (navigator.clipboard) {
+                await navigator.clipboard.writeText(pitchVal)
+            } else {
+                // Fallback for HTTP
+                const textArea = document.createElement("textarea")
+                textArea.value = pitchVal
+                document.body.appendChild(textArea)
+                textArea.select()
+                document.execCommand("copy")
+                document.body.removeChild(textArea)
+            }
         } catch (error) {
             if (error instanceof Error) setError(new Error(error.message))
             else setError(new Error("An unknown error has occured. Please try again."))
@@ -123,11 +133,11 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
             {
                 pitchVal &&
                 <div className='py-4 font-normal'>
-                    <p 
+                    <p
                         className="text-(--letter-pink) text-sm font-bold underline cursor-pointer hover:text-(--letter-white) active:text-(--letter-white)"
-                        onClick={() => {setIsPitchShown((curVal) => !curVal)}}
+                        onClick={() => { setIsPitchShown((curVal) => !curVal) }}
                     >
-                        {isPitchShown ? "Hide Generated Pitch": "Show Generated Pitch"} 
+                        {isPitchShown ? "Hide Generated Pitch" : "Show Generated Pitch"}
                     </p>
                     {
                         isPitchShown &&
