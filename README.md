@@ -5,7 +5,7 @@ Toki Pitcher is a retention agent tool for Toki Internet (a made up company) to 
 ![An overview of the image](demo/demo.png)
 
 ## Get Started
-* Live Implementation: http://ec2-44-200-59-154.compute-1.amazonaws.com/
+* Live Implementation: http://44.200.59.154 (DNS name can take too long to be resolved)
 * Demo Video: https://youtu.be/q-TezmCFfdw
 
 ## Tech Stack
@@ -222,10 +222,10 @@ const apiEndpoint = process.env.NEXT_PUBLIC_BACKEND_URL ?? ""
 ### PART 2: SSH (Secure Shell) Into The Server
 ```bash
 # On your laptop, restrict key permissions
-chmod 400 my-app-key.pem
+chmod 400 toki_pitcher_ssh_key.pem
 
 # SSH in
-ssh -i my-app-key.pem ubuntu@<your-ec2-public-ip>
+ssh -i toki_pitcher_ssh_key.pem ubuntu@<your-ec2-public-ip>
 ```
 
 * `chmod` stands for change mode — it controls who can read/write/execute a file on Linux/Mac.
