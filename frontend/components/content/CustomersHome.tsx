@@ -33,9 +33,6 @@ export default function CustomersHome({ customersData }: CustomersHomePropsType)
         })
         : customersData
 
-
-    console.log(displayedCustomers.length)
-
     return (
         <>
             <div className='ml-auto mr-4 my-4'>

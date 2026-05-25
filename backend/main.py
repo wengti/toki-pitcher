@@ -29,7 +29,7 @@ app.add_middleware(
 )
 
 
-@app.post("/pitch")
+@app.post("/api/pitch")
 def generate_pitch(customer_data: CustomerDataModel):
 
     try:

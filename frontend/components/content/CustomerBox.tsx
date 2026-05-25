@@ -30,7 +30,8 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
             setError(null)
             setIsLoading(true)
 
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL!}/pitch`, {
+            const apiEndpoint = process.env.NEXT_PUBLIC_BACKEND_URL ?? ""
+            const res = await fetch(`${apiEndpoint}/api/pitch`, {
                 method: "POST",
                 body: JSON.stringify(customerData),
                 headers: {
