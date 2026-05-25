@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from pydantic import BaseModel
 
+from ai.pitcher_chain import create_pitcher_chain
 from data.db_client import create_supabase_client
 from model.model import CustomerDataModel, PitcherPromptModel
 from postgrest.exceptions import APIError
@@ -98,8 +99,17 @@ def generate_pitch(customer_data: CustomerDataModel):
         ).model_dump()
 
         # Invoke the LLM chain
+        pitcher_chain = create_pitcher_chain()
+        ai_response = pitcher_chain.invoke(pitcher_template_dict)
+        ai_answer = ai_response.content
 
         # Update database
+        update_response = (
+            supabase.table("customers")
+            .update({"pitch": ai_answer})
+            .eq("id", customer_data.id)
+            .execute()
+        )
 
         # Send the response back
 
