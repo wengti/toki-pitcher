@@ -9,7 +9,7 @@ class CustomerDataModel(BaseModel):
     plan: str
     tenure_end: str
     tenure_start: str
-    pitch: str
+    pitch: str | None
 
 
 # To be sent to the LLM chain for pitch generation

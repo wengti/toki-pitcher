@@ -33,6 +33,7 @@ app.add_middleware(
 def generate_pitch(customer_data: CustomerDataModel):
 
     try:
+
         # Decide plan to be suggested
         monthly_usage = customer_data.monthly_usage
         cur_plan_name = customer_data.plan
@@ -51,17 +52,18 @@ def generate_pitch(customer_data: CustomerDataModel):
         response = (
             supabase.table("plans")
             .select("*")
-            .or_(f"name.eq.{cur_plan_name},name.eq.{new_plan_name}")
+            .in_("name", [cur_plan_name, new_plan_name])
             .execute()
         )
 
         cur_plan_data = None
         new_plan_data = None
-        for data in response["data"]:
+        for data in response.data:
+            print(data)
             if data["name"] == cur_plan_name:
-                cur_plan_data = PublicPlans(data)
+                cur_plan_data = PublicPlans(**data)
             elif data["name"] == new_plan_name:
-                new_plan_data = PublicPlans(data)
+                new_plan_data = PublicPlans(**data)
 
         if cur_plan_data == None or new_plan_data == None:
             raise HTTPException(
@@ -101,17 +103,18 @@ def generate_pitch(customer_data: CustomerDataModel):
         # Invoke the LLM chain
         pitcher_chain = create_pitcher_chain()
         ai_response = pitcher_chain.invoke(pitcher_template_dict)
-        ai_answer = ai_response.content
+        new_pitch_val = ai_response.content
 
         # Update database
         update_response = (
             supabase.table("customers")
-            .update({"pitch": ai_answer})
+            .update({"pitch": new_pitch_val})
             .eq("id", customer_data.id)
             .execute()
         )
 
         # Send the response back
+        return {"new_pitch_val": new_pitch_val}
 
     except HTTPException as error:
         raise
