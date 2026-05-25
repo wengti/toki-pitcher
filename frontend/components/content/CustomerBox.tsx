@@ -14,6 +14,7 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
     const [pitchVal, setPitchVal] = useState<string>(originalPitchVal)
     const [error, setError] = useState<Error | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [isPitchShown, setIsPitchShown] = useState<boolean>(false)
 
     async function handleCopy() {
         try {
@@ -24,7 +25,7 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
         }
     }
 
-    async function generatePitch(){
+    async function generatePitch() {
         try {
             setError(null)
             setIsLoading(true)
@@ -38,7 +39,7 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
             })
 
             // Improve the error message based on server error
-            if(!res.ok){
+            if (!res.ok) {
                 const errorData = await res.json()
                 throw new Error(errorData["detail"])
             }
@@ -46,11 +47,12 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
             const data = await res.json()
 
             // Verify if this is working
-            if(data.new_pitch_val){
+            if (data.new_pitch_val) {
                 setPitchVal(data.new_pitch_val)
             }
             setIsLoading(false)
-            
+            setIsPitchShown(true)
+
         } catch (error) {
             setIsLoading(false)
             if (error instanceof Error) setError(new Error(error.message))
@@ -90,7 +92,7 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
             <div className="flex gap-4 mt-8 justify-around md:justify-start">
                 <button
                     className='bg-(--header-color) p-2 rounded-lg hover:opacity-50 active:opacity-50 cursor-pointer'
-                    onClick ={ () => generatePitch() }
+                    onClick={() => generatePitch()}
                 >
                     Generate Pitch
                 </button>
@@ -120,8 +122,16 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
             {
                 pitchVal &&
                 <div className='py-4 font-normal'>
-                    <p className="text-(--letter-pink) text-sm font-bold">Generated Pitch: </p>
-                    <p>{pitchVal}</p>
+                    <p 
+                        className="text-(--letter-pink) text-sm font-bold underline cursor-pointer hover:text-(--letter-white) active:text-(--letter-white)"
+                        onClick={() => {setIsPitchShown((curVal) => !curVal)}}
+                    >
+                        {isPitchShown ? "Hide Generated Pitch": "Show Generated Pitch"} 
+                    </p>
+                    {
+                        isPitchShown &&
+                        <p className="whitespace-pre-wrap">{pitchVal}</p>
+                    }
                 </div>
             }
 

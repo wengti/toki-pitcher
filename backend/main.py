@@ -60,7 +60,7 @@ def generate_pitch(customer_data: CustomerDataModel):
         for data in response.data:
             if data["name"] == cur_plan_name:
                 cur_plan_data = PublicPlans(**data)
-            elif data["name"] == new_plan_name:
+            if data["name"] == new_plan_name:
                 new_plan_data = PublicPlans(**data)
 
         if cur_plan_data == None or new_plan_data == None:
