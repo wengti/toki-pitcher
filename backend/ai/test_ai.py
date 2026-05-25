@@ -1,6 +1,7 @@
 import pytest
 
-from ai.pitcher_chain import PitcherPromptModel, create_pitcher_chain
+from ai.pitcher_chain import create_pitcher_chain
+from model.model import PitcherPromptModel
 
 
 def test_pitcher_chain():
