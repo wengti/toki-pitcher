@@ -87,7 +87,7 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
                     </div>
                 </div>
             </div>
-            <div className="flex gap-4 mt-8 justify-around">
+            <div className="flex gap-4 mt-8 justify-around md:justify-start">
                 <button
                     className='bg-(--header-color) p-2 rounded-lg hover:opacity-50 active:opacity-50 cursor-pointer'
                     onClick ={ () => generatePitch() }

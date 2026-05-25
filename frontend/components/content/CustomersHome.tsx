@@ -45,7 +45,7 @@ export default function CustomersHome({ customersData }: CustomersHomePropsType)
                     onChange={handleFilter}
                 />
             </div>
-            <div className="grow gap-4 m-8 grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
+            <div className="grow gap-4 m-8 grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(600px,1fr))]">
                 {
                     displayedCustomers.map((data) =>
                         <CustomerBox customerData={data} key={data.id} />
