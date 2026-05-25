@@ -19,7 +19,8 @@ The pitch should follow the following structure but remain personalised and tail
     5. Close with continuity
         Convince the customer to renew the contracts as soon as possible so that they can lock in the rate
 
-The following terminology is helpful for you to explain some terms in more details to the client:
+The following terminology is helpful for you to explain some terms in more details to the client. 
+You must explain these terms clearly when you are going to involve them in your pitch.
 1. FTTR: Fibre-To-The-Room
     - Ideal for households with heavy Internet usage on multiple devices, 
     - our expert installers discreetly install transparent optical fibre to designated rooms
