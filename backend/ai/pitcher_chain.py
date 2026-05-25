@@ -3,29 +3,8 @@ import os
 from langchain.chat_models import init_chat_model
 from langchain_core.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
-from pydantic import BaseModel
 
 load_dotenv(override=True)
-
-
-class PitcherPromptModel(BaseModel):
-    customer_name: str
-    tenure_start: str
-    tenure_end: str
-    monthly_usage: str
-    cur_plan_name: str
-    cur_plan_price: str
-    cur_download_speed: str
-    cur_upload_speed: str
-    new_plan_name: str
-    new_plan_price: str
-    new_download_speed: str
-    new_upload_speed: str
-    new_plan_duration_months: str
-    router: str
-    mesh_price: str | None
-    fttr_price: str | None
-    promotion: str | None
 
 
 def create_pitcher_chain():
