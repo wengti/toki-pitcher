@@ -12,13 +12,13 @@ if __name__ == "__main__":
 
     for _ in range(50):
 
-        # Create start date: Assuming all start from 2010 t0 2023
+        # Create start date: Assuming all start from 2010 to 2024
         start_year = random.randint(2010, 2024)
         start_month = random.randint(1, 12)
         start_day = 28
         tenure_start = datetime(start_year, start_month, start_day).date().isoformat()
 
-        # Create end date: Assuming all end in May 28 to December 28th this year
+        # Create end date: Assuming all end in May 28 to December 28th this year (2026)
         end_year = 2026
         end_month = random.randint(5, 12)
         end_day = 28

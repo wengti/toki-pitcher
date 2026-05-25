@@ -14,8 +14,10 @@ from model.supabase_model import PublicPlans
 
 load_dotenv(override=True)
 
+# Initialize FastAPI instance
 app = FastAPI()
 
+# Handle CORS Middleware
 origins = [
     os.getenv("FRONTEND_URL"),
 ]
@@ -55,6 +57,8 @@ def generate_pitch(customer_data: CustomerDataModel):
             .execute()
         )
 
+        # Cast the plan detail into the corresponding
+        # model type required by llm's chat template
         cur_plan_data = None
         new_plan_data = None
         for data in response.data:
@@ -63,6 +67,7 @@ def generate_pitch(customer_data: CustomerDataModel):
             if data["name"] == new_plan_name:
                 new_plan_data = PublicPlans(**data)
 
+        # Raise an Error if a plan detail cannot be retrieved
         if cur_plan_data == None or new_plan_data == None:
             raise HTTPException(
                 status_code=500,
@@ -103,7 +108,7 @@ def generate_pitch(customer_data: CustomerDataModel):
         ai_response = pitcher_chain.invoke(pitcher_template_dict)
         new_pitch_val = ai_response.content
 
-        # Update database
+        # Update database to store the new pitch value
         update_response = (
             supabase.table("customers")
             .update({"pitch": new_pitch_val})

@@ -5,8 +5,10 @@ export default async function ContentHome() {
 
     try {
 
+        /* Fetch Data from database */
+        /* Sorted by Tenure End Date and Plan Name in ascending order */
+        /* Only fetch those that have expired data after the current date */
         const now = new Date()
-
         const supabase = await createClient()
         const { data, error } = await supabase
             .from("customers")
@@ -21,6 +23,7 @@ export default async function ContentHome() {
             throw new Error("No valid data can be found.")
         }
         
+        /* All the customer data are passed to the children component as props */
         return (
             <section className='min-h-(--content-h) flex flex-col'>
                 <CustomersHome customersData={data}/>

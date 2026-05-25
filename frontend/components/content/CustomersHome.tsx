@@ -5,14 +5,19 @@ import React, { useState } from "react"
 import { Toggle } from "../tailgrids/core/toggle"
 import CustomerBox from "./CustomerBox"
 
+/* Type */
 export type CustomerType = Database["public"]["Tables"]["customers"]["Row"]
 
 type CustomersHomePropsType = {
     customersData: CustomerType[]
 }
 
+/* Component */
 export default function CustomersHome({ customersData }: CustomersHomePropsType) {
 
+
+    /* Filtering logic */
+    /* When the toggle is turned on, it filters out the customer that has contract that expires this month */
     const [isFiltered, setIsFiltered] = useState<boolean>(false)
 
     function handleFilter(event: React.ChangeEvent<HTMLInputElement>) {
@@ -35,6 +40,7 @@ export default function CustomersHome({ customersData }: CustomersHomePropsType)
 
     return (
         <>
+            {/* The Filter Component */}
             <div className='ml-auto mr-4 my-4'>
                 <Toggle
                     label="Show contracts that expire this month"
@@ -42,6 +48,8 @@ export default function CustomersHome({ customersData }: CustomersHomePropsType)
                     onChange={handleFilter}
                 />
             </div>
+
+            {/* The Grid that holds all customers data */}
             <div className="grow gap-4 m-8 grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(600px,1fr))]">
                 {
                     displayedCustomers.map((data) =>

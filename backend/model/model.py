@@ -1,7 +1,7 @@
-# Received from the frontend
-from openai import BaseModel
+from pydantic import BaseModel
 
 
+# Data structure from the frontend
 class CustomerDataModel(BaseModel):
     id: str
     monthly_usage: float

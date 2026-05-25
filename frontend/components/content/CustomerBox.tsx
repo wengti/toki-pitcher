@@ -16,12 +16,14 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isPitchShown, setIsPitchShown] = useState<boolean>(false)
 
+    /* Handle copying the generated pitch */
     async function handleCopy() {
         try {
             if (navigator.clipboard) {
+                /* Only available for localhost or https */
                 await navigator.clipboard.writeText(pitchVal)
             } else {
-                // Fallback for HTTP
+                /* Fallback for HTTP */
                 const textArea = document.createElement("textarea")
                 textArea.value = pitchVal
                 document.body.appendChild(textArea)
@@ -35,11 +37,14 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
         }
     }
 
+    /* Handle Generating Pitch by hitting the backend */
     async function generatePitch() {
         try {
+            /* Reset Error and Loading state */
             setError(null)
             setIsLoading(true)
 
+            /* Hit the Backend to generate pitch */
             const apiEndpoint = process.env.NEXT_PUBLIC_BACKEND_URL ?? ""
             const res = await fetch(`${apiEndpoint}/api/pitch`, {
                 method: "POST",
@@ -49,18 +54,19 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
                 }
             })
 
-            // Improve the error message based on server error
+            /* Handle error from the backend */
             if (!res.ok) {
                 const errorData = await res.json()
                 throw new Error(errorData["detail"])
             }
 
+            /* Operation Succeeds */
+            /* update the state to show generated pitch */
             const data = await res.json()
-
-            // Verify if this is working
             if (data.new_pitch_val) {
                 setPitchVal(data.new_pitch_val)
             }
+
             setIsLoading(false)
             setIsPitchShown(true)
 
@@ -74,6 +80,8 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
 
     return (
         <div className='border border-white rounded-2xl font-bold p-4 flex flex-col relative'>
+
+            {/* Customer Details */}
             <div className="flex flex-col gap-4 text-xl justify-center">
                 <div>
                     <p className='text-xs text-(--letter-pink)'>Name: </p>
@@ -100,6 +108,8 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
                     </div>
                 </div>
             </div>
+
+            {/* Button Group */}
             <div className="flex gap-4 mt-8 justify-around md:justify-start">
                 <button
                     className='bg-(--header-color) p-2 rounded-lg hover:opacity-50 active:opacity-50 cursor-pointer'
