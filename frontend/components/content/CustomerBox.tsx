@@ -29,7 +29,7 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
             setError(null)
             setIsLoading(true)
 
-            const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL!, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL!}/pitch`, {
                 method: "POST",
                 body: JSON.stringify(customerData),
                 headers: {
@@ -38,8 +38,9 @@ export default function CustomerBox({ customerData }: CustomerBoxPropsType) {
             })
 
             // Improve the error message based on server error
-            if(!res.ok){ 
-                throw new Error("A server side issue has occured.")
+            if(!res.ok){
+                const errorData = await res.json()
+                throw new Error(errorData["detail"])
             }
 
             const data = await res.json()

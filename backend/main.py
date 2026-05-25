@@ -33,7 +33,6 @@ app.add_middleware(
 def generate_pitch(customer_data: CustomerDataModel):
 
     try:
-
         # Decide plan to be suggested
         monthly_usage = customer_data.monthly_usage
         cur_plan_name = customer_data.plan
