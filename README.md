@@ -426,5 +426,6 @@ npx supabase gen types --lang=python --db-url "<session-pooler-connection-string
 
 ## Possible Future Improvement
 * Stream the LLM response instead of waiting for full completion
+* Expand the LLM pipeline into a graph where we can add another model as a critic to improve the pitch before returning it to the retention agent.
 * Add authentication so only agents can access it
 * Implement more advanced search and filter functionalities
