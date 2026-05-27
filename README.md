@@ -36,6 +36,7 @@ Toki Pitcher is a retention agent tool for Toki Internet (a made up company) to 
 The broadband plans that can be offered to the customer is created by referring to this source: https://www.time.com.my/, where the plan is named as Tier 1 to Tier 4 from the most expensive to the cheapest plan.
 
 The details of these plans are stored in the database using the following schema:
+
 ![Plan Schema](/demo/plan_schema.png)
 
 Since the average montly usage from the user that adopts each plan is not mentioned from the advertisement, it is assumed that the plan is created with the following target customer group in mind:
