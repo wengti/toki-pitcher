@@ -25,16 +25,18 @@ export default function CustomersHome({ customersData }: CustomersHomePropsType)
     }
 
     const now = new Date()
-    const curYear = now.getFullYear()
-    const curMonth = now.getMonth()
+    const curDate = now.getDate()
+    const curMonth = curDate > 28 ? now.getMonth() + 1 : now.getMonth()
+    const modCurMonth = curMonth % 12
+    const curYear = curMonth > 11 ? now.getFullYear() + 1 : now.getFullYear()
 
 
     const displayedCustomers = isFiltered
         ? customersData.filter((data) => {
             const endDate = new Date(data.tenure_end)
-            const endYear = endDate.getFullYear()
             const endMonth = endDate.getMonth()
-            return (endYear === curYear && endMonth === curMonth)
+            const endYear = endDate.getFullYear()
+            return (endYear === curYear && endMonth === modCurMonth)
         })
         : customersData
 
